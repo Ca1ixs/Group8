@@ -9,9 +9,10 @@ html, body {
   height: 100%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: url('../LogAccount/Assets/SignUp.png') no-repeat center center fixed;
+  background-size: cover;
+  background-color: #f0f4f8;
   display: flex;
   flex-direction: column;
-  background-color: #f0f4f8;
 }
 
 /* Header */
@@ -23,7 +24,6 @@ header {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  box-sizing: border-box;
   border-radius: 0 0 8px 8px;
 }
 
@@ -32,7 +32,7 @@ header {
   height: auto;
 }
 
-/* Navigation bar */
+/* Navigation */
 nav {
   flex: 1;
   margin: 0 40px;
@@ -59,7 +59,6 @@ nav ul li a {
   transition: filter 0.2s ease;
 }
 
-/* Button backgrounds */
 nav ul li a.tripplanner-btn {
   background-image: url('Compass_Site/Assets/images/MenuTripPlanner.png');
 }
@@ -72,15 +71,13 @@ nav ul li a.travelog-btn {
   background-image: url('Compass_Site/Assets/images/MenuTravelLogs.png');
 }
 
-/* Hover effect */
 nav ul li a:hover {
   filter: brightness(0.85);
 }
 
-/* Active nav item */
 nav a.active {
   outline: 2px solid white;
-  background-color: #555; /* subtle highlight */
+  background-color: #555;
   color: white;
 }
 
@@ -91,7 +88,6 @@ nav a.active {
   cursor: pointer;
   color: white;
   font-weight: bold;
-  user-select: none;
 }
 
 #dropdownMenu {
@@ -122,19 +118,19 @@ nav a.active {
   background-color: #eee;
 }
 
-/* Main container */
+/* Main content */
 main {
   flex: 1;
   width: 100%;
   max-width: 1200px;
   margin: 40px auto;
   padding: 0 40px;
-  box-sizing: border-box;
   background-color: transparent;
 }
 
 .trip-planner-container {
   display: flex;
+  flex-wrap: wrap;
   gap: 40px;
   background: white;
   border-radius: 12px;
@@ -142,7 +138,7 @@ main {
   padding: 40px;
 }
 
-/* Trip planner form */
+/* Form section */
 .trip-planner-form {
   flex: 1 1 400px;
   display: flex;
@@ -166,7 +162,8 @@ main {
 
 .trip-planner-form input[type="text"],
 .trip-planner-form input[type="date"],
-.trip-planner-form textarea {
+.trip-planner-form textarea,
+.trip-planner-form select {
   padding: 12px 15px;
   border: 1.8px solid #ccc;
   border-radius: 6px;
@@ -176,8 +173,8 @@ main {
   resize: vertical;
 }
 
-.trip-planner-form input[type="text"]:focus,
-.trip-planner-form input[type="date"]:focus,
+.trip-planner-form input:focus,
+.trip-planner-form select:focus,
 .trip-planner-form textarea:focus {
   border-color: #006699;
   outline: none;
@@ -207,6 +204,27 @@ main {
   box-shadow: 0 6px 12px rgba(0, 77, 102, 0.6);
 }
 
+/* Activities checkbox group */
+.activity-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.activity-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.activity-checkbox input[type="checkbox"] {
+  transform: scale(1.2);
+  accent-color: #006699;
+}
+
 /* Saved trips */
 .saved-trips-list {
   flex: 1 1 450px;
@@ -225,11 +243,6 @@ main {
   padding-bottom: 8px;
 }
 
-.saved-trips-list p {
-  color: #555;
-  font-size: 1.1rem;
-}
-
 .saved-trips-list .trip {
   border: 1px solid #ddd;
   padding: 20px;
@@ -237,7 +250,6 @@ main {
   border-radius: 10px;
   background-color: #f9fafe;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
-  transition: box-shadow 0.3s ease;
 }
 
 .saved-trips-list .trip:hover {
@@ -248,48 +260,19 @@ main {
   margin-bottom: 10px;
 }
 
-/* Destinations section */
-.destinations {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: space-between;
-  margin-top: 30px;
-}
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .trip-planner-container {
+    flex-direction: column;
+    padding: 20px;
+  }
 
-.destinations article {
-  flex: 1 1 30%;
-  background: #ffcc66;
-  border-radius: 8px;
-  padding: 15px;
-  box-sizing: border-box;
-  box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
-}
-
-.destinations article:hover {
-  transform: translateY(-5px);
-  box-shadow: 4px 4px 10px rgba(0,0,0,0.15);
-}
-
-.destinations img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-  border-radius: 6px;
-  margin-bottom: 10px;
-}
-
-.destinations h2 {
-  font-size: 1.2rem;
-  margin-bottom: 6px;
-  color: #993300;
-}
-
-.destinations p {
-  font-size: 0.9rem;
-  line-height: 1.3;
-  color: #333;
+  .saved-trips-list {
+    padding-left: 0;
+    border-left: none;
+    border-top: 2px solid #e2e8f0;
+    margin-top: 40px;
+  }
 }
 
 /* Footer */
@@ -302,7 +285,6 @@ footer {
 
 footer a {
   color: #993300;
-  cursor: pointer;
   text-decoration: underline;
 }
 

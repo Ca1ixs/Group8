@@ -1,38 +1,34 @@
 <?php
 session_start();
+require_once '../db.php';
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit;
 }
 
-require_once '../db.php';  
-
 $user_id = $_SESSION['user_id'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $tripName = trim($_POST['tripName'] ?? '');
-    $destination = trim($_POST['destination'] ?? '');
-    $start_date = $_POST['startDate'] ?? '';
-    $end_date = $_POST['endDate'] ?? '';
-    $notes = trim($_POST['notes'] ?? '');
+    $tripName = $_POST['tripName'];
+    $destination = $_POST['destination'];
+    $startDate = $_POST['startDate'];
+    $endDate = $_POST['endDate'];
+    $notes = $_POST['notes'];
+    $region = $_POST['region'];
+    $city = $_POST['city'];
 
-    if ($tripName === '' || $destination === '' || $start_date === '' || $end_date === '') {
-        die("Please fill in all required fields.");
-    }
+$activityArray = isset($_POST['activities']) ? $_POST['activities'] : [];
+    $activity = implode(', ', $activityArray);
 
-    $stmt = $conn->prepare("INSERT INTO trips (user_id, tripName, destination, start_date, end_date, notes) VALUES (?, ?, ?, ?, ?, ?)");
-    if (!$stmt) {
-        die("Prepare failed: " . $conn->error);
-    }
-
-    $stmt->bind_param("isssss", $user_id, $tripName, $destination, $start_date, $end_date, $notes);
+    $stmt = $conn->prepare("INSERT INTO trips (user_id, tripName, destination, start_date, end_date, notes, region, city, activity) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("issssssss", $user_id, $tripName, $destination, $startDate, $endDate, $notes, $region, $city, $activity);
 
     if ($stmt->execute()) {
-        header("Location: tripPlanner.php?success=1");
+        header("Location: TripPlanner.php");
         exit;
     } else {
-        die("Execute failed: " . $stmt->error);
+        echo "Error saving trip: " . $stmt->error;
     }
 }
 ?>
